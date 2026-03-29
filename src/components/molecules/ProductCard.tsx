@@ -9,21 +9,26 @@ interface Props {
     onAddToCart: (product: Product) => void
 }
 
-export const ProductCard = ({ product, onAddToCart }: Props) => {
+export const ProductCard = ({ product }: Props) => {
     const navigate = useNavigate()
 
     return (
         <div
-            className="bg-white flex flex-col cursor-pointer group"
+            className="bg-white flex flex-col cursor-pointer group border border-gray-300 rounded-sm"
             onClick={() => navigate(`/products/${product.id}`)}
         >
-            {/* Image */}
             <div className="aspect-square bg-gray-50 flex items-center justify-center relative overflow-hidden group-hover:bg-red-pale transition-colors">
-                <span className="text-5xl leading-none">{product.icon}</span>
+                {product.thumbnail
+                    ? <img
+                        src={product.thumbnail}
+                        alt={product.name}
+                        className="w-full h-full object-cover"
+                    />
+                    : <span className="text-5xl leading-none">{product.icon}</span>
+                }
                 {product.badge && <ProductBadge type={product.badge} />}
             </div>
 
-            {/* Body */}
             <div className="p-3 flex flex-col gap-1 flex-1">
                 <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
                     {product.shop}
@@ -40,21 +45,13 @@ export const ProductCard = ({ product, onAddToCart }: Props) => {
                 />
 
                 <div className="flex items-center justify-between mt-1">
+
                     <StarRating rating={product.rating} />
                     <span className="text-[10px] text-gray-400">{product.sold} terjual</span>
                 </div>
 
-                <div className="text-[10px] text-gray-400">📍 {product.location}</div>
+                <div className="text-[10px] text-gray-400"> {product.location}</div>
 
-                <button
-                    className="w-full mt-2 py-2 border border-gray-900 text-gray-900 text-[11px] font-bold tracking-widest uppercase rounded-sm hover:bg-red hover:border-red hover:text-white transition-all"
-                    onClick={e => {
-                        e.stopPropagation()
-                        onAddToCart(product)
-                    }}
-                >
-                    + Keranjang
-                </button>
             </div>
         </div>
     )

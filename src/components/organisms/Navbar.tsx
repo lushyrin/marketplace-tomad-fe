@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { ShoppingCartOutlined, UserOutlined } from '@ant-design/icons'
 import { SearchBar } from '../molecules/SearchBar'
 
 interface Props {
@@ -10,7 +11,7 @@ export const Navbar = ({ cartCount }: Props) => {
 
     return (
         <nav className="flex items-center gap-4 py-3.5 border-b-2 border-gray-900">
-            {/* Logo */}
+            {/* logo */}
             <div
                 className="font-display text-[1.6rem] font-bold text-red tracking-tight leading-none cursor-pointer flex-shrink-0"
                 onClick={() => navigate('/')}
@@ -20,12 +21,13 @@ export const Navbar = ({ cartCount }: Props) => {
 
             <SearchBar />
 
-            {/* Actions */}
+            {/* actions */}
             <div className="flex items-center gap-1.5 flex-shrink-0">
                 <button
-                    className="hidden sm:block px-3 py-2 text-[12px] font-medium text-gray-500 hover:text-gray-900 transition-colors"
+                    className="hidden sm:flex items-center gap-1.5 px-3 py-2 text-[12px] font-medium text-gray-500 hover:text-gray-900 transition-colors"
                     onClick={() => navigate('/login')}
                 >
+                    <UserOutlined className="text-[14px]" />
                     Masuk
                 </button>
                 <button
@@ -34,13 +36,15 @@ export const Navbar = ({ cartCount }: Props) => {
                 >
                     Daftar
                 </button>
+
+                {/* carticon with item count badge */}
                 <div
                     className="relative cursor-pointer p-1"
                     onClick={() => navigate('/cart')}
                 >
-                    <span className="text-xl leading-none">🛒</span>
+                    <ShoppingCartOutlined className="text-[22px] text-gray-900" />
                     {cartCount > 0 && (
-                        <div className="absolute -top-1 -right-1 bg-red text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center font-body">
+                        <div className="absolute -top-1 -right-1 bg-red text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                             {cartCount}
                         </div>
                     )}
