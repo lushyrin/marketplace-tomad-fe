@@ -3,6 +3,7 @@ import {
     fetchFlashSale,
     fetchRecommendations,
     fetchProductById,
+    fetchProductsByCategory,
 } from '../services/dummyJSONService'
 
 export const useFlashSale = () =>
@@ -16,6 +17,14 @@ export const useRecommendations = () =>
     useQuery({
         queryKey: ['products', 'recommendations'],
         queryFn: fetchRecommendations,
+        staleTime: 1000 * 60 * 5,
+    })
+
+// fetches products by category slug — 'all' returns recommendations
+export const useProductsByCategory = (slug: string) =>
+    useQuery({
+        queryKey: ['products', 'category', slug],
+        queryFn: () => fetchProductsByCategory(slug),
         staleTime: 1000 * 60 * 5,
     })
 

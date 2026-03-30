@@ -11,7 +11,7 @@ export const PriceTag = ({ price, originalPrice, discount }: Props) => (
         <span className="font-display text-[1.05rem] font-bold text-gray-900">
             {formatIDR(price)}
         </span>
-        {originalPrice && (
+        {originalPrice && originalPrice > price && (
             <div className="flex items-center gap-1.5">
                 <span className="text-[11px] text-gray-400 line-through">
                     {formatIDR(originalPrice)}

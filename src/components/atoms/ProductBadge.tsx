@@ -5,9 +5,9 @@ interface Props {
 }
 
 const CONFIG: Record<BadgeType, { label: string; className: string }> = {
-  sale: { label: 'Sale', className: 'bg-red text-white' },
+  sale: { label: 'Diskon', className: 'bg-red text-white' },
   new: { label: 'Baru', className: 'bg-gray-900 text-white' },
-  hot: { label: 'Terlaris', className: 'bg-amber-100 text-amber-800' },
+  hot: { label: 'Populer', className: 'bg-amber-100 text-amber-800' },
 }
 
 export const ProductBadge = ({ type }: Props) => {

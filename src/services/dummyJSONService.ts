@@ -1,6 +1,5 @@
 import type { Product } from '../types'
 
-// dummyjson product shape 
 interface DummyProduct {
     id: number
     title: string
@@ -28,24 +27,19 @@ interface DummyCategory {
     url: string
 }
 
-// maps dummyjson product to our product type
 const toProduct = (p: DummyProduct): Product => ({
     id: String(p.id),
     name: p.title,
     shop: p.brand ?? 'Official Store',
     shopId: `shop-${p.category}`,
-    price: Math.round(p.price * 15000),           // usd to idr approx
-    originalPrice: p.discountPercentage > 0
+    price: Math.round(p.price * 15000),
+    originalPrice: p.discountPercentage > 1
         ? Math.round((p.price / (1 - p.discountPercentage / 100)) * 15000)
         : undefined,
-    discount: p.discountPercentage > 0
+    discount: p.discountPercentage > 1
         ? Math.round(p.discountPercentage)
         : undefined,
-    badge: p.discountPercentage >= 30
-        ? 'sale'
-        : p.discountPercentage > 0
-            ? 'hot'
-            : undefined,
+    badge: p.discountPercentage >= 40 ? 'sale' : undefined,
     rating: p.rating,
     sold: `${Math.floor(Math.random() * 900) + 100}`,
     location: 'Jakarta',
@@ -56,7 +50,6 @@ const toProduct = (p: DummyProduct): Product => ({
     images: p.images,
 })
 
-// flash sale — sorted by highest discount
 export const fetchFlashSale = async (): Promise<Product[]> => {
     const res = await fetch(
         'https://dummyjson.com/products?limit=8&sortBy=discountPercentage&order=desc'
@@ -65,7 +58,6 @@ export const fetchFlashSale = async (): Promise<Product[]> => {
     return data.products.map(toProduct)
 }
 
-// recommendations 
 export const fetchRecommendations = async (): Promise<Product[]> => {
     const res = await fetch(
         'https://dummyjson.com/products?limit=8&sortBy=rating&order=desc&skip=8'
@@ -74,7 +66,17 @@ export const fetchRecommendations = async (): Promise<Product[]> => {
     return data.products.map(toProduct)
 }
 
-// all categories
+// 'all' returns top rated products, otherwise fetches by category slug
+export const fetchProductsByCategory = async (slug: string): Promise<Product[]> => {
+    const url = slug === 'all'
+        ? 'https://dummyjson.com/products?limit=16&sortBy=rating&order=desc'
+        : `https://dummyjson.com/products/category/${slug}?limit=16`
+
+    const res = await fetch(url)
+    const data: DummyResponse = await res.json()
+    return data.products.map(toProduct)
+}
+
 export const fetchCategories = async () => {
     const res = await fetch('https://dummyjson.com/products/categories')
     const data: DummyCategory[] = await res.json()
@@ -89,7 +91,6 @@ export const fetchCategories = async () => {
     ]
 }
 
-// single product by id
 export const fetchProductById = async (id: string): Promise<Product> => {
     const res = await fetch(`https://dummyjson.com/products/${id}`)
     const data: DummyProduct = await res.json()

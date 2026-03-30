@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { Navbar } from '../components/organisms/Navbar'
 import { Footer } from '../components/organisms/Footer'
-import { useCart } from '../hooks/Usecart'
+import { useCart } from '../hooks/UseCart'
 
 export const RootLayout = () => {
     const { totalItems } = useCart()
