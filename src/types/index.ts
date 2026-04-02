@@ -1,21 +1,40 @@
 export interface Product {
     id: string
-    icon?: string
-    badge?: 'sale' | 'new' | 'hot'
+    name: string
     shop: string
     shopId?: string
-    name: string
     price: number
     originalPrice?: number
     discount?: number
     rating: number
     sold: string
     location: string
+    badge?: 'sale' | 'new' | 'hot'
+    icon?: string
+    thumbnail?: string
+    images?: string[]
     category?: string
     stock?: number
     description?: string
+    reviews?: Review[]
+    brand?: string
+    warrantyInformation?: string
+    shippingInformation?: string
+    returnPolicy?: string
+}
+
+export interface Review {
+    rating: number
+    comment: string
+    date: string
+    reviewerName: string
     images?: string[]
-    thumbnail?: string
+}
+
+export interface Category {
+    id: string
+    label: string
+    slug: string
 }
 
 export interface CartItem {
@@ -24,6 +43,7 @@ export interface CartItem {
     price: number
     quantity: number
     icon?: string
+    thumbnail?: string
     shop: string
 }
 
