@@ -12,17 +12,16 @@ export const ProductListPage = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     const { addToCart } = useCart()
 
-    // read filters from URL so they are shareable/bookmarkable
     const [category, setCategory] = useState(searchParams.get('category') ?? 'all')
     const [sort, setSort] = useState(searchParams.get('sort') ?? 'rating')
     const [page, setPage] = useState(Number(searchParams.get('page') ?? 1))
     const q = searchParams.get('q') ?? ''
 
-    // sync state back to URL when filters change
     useEffect(() => {
         const params: Record<string, string> = { sort, category, page: String(page) }
         if (q) params.q = q
         setSearchParams(params, { replace: true })
+        window.scrollTo({ top: 0, behavior: 'smooth' })
     }, [category, sort, page])
 
     const { data, isLoading, isFetching } = useProductList({ q, category, sort: sort as any, page, limit: LIMIT })
@@ -37,7 +36,7 @@ export const ProductListPage = () => {
 
     const handleCategoryChange = (slug: string) => {
         setCategory(slug)
-        setPage(1) // reset to first page on filter change
+        setPage(1)
     }
 
     const handleSortChange = (s: string) => {
@@ -60,14 +59,12 @@ export const ProductListPage = () => {
                     )}
                 </div>
 
-                {/* opacity indicator when fetching next page */}
                 {isFetching && !isLoading && (
                     <span className="text-[12px] text-gray-400">Memuat...</span>
                 )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-6 items-start">
-                {/* sidebar */}
                 <FilterSidebar
                     selectedCategory={category}
                     selectedSort={sort}
@@ -76,14 +73,12 @@ export const ProductListPage = () => {
                     onReset={handleReset}
                 />
 
-                {/* product grid */}
                 <div>
                     {isLoading
                         ? <LoadingSpinner />
                         : <ProductGrid products={data?.products ?? []} onAddToCart={addToCart} />
                     }
 
-                    {/* pagination */}
                     {totalPages > 1 && (
                         <div className="flex items-center justify-center gap-2 mt-8">
                             <button
@@ -131,4 +126,4 @@ export const ProductListPage = () => {
             </div>
         </div>
     )
-} 
+}

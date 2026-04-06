@@ -15,8 +15,8 @@ export const HeroSection = () => {
 
                     <h1 className="font-display text-[2.6rem] font-bold leading-[1.05] tracking-tight text-gray-900">
                         Semua ada.<br />
-                        <em className="italic text-red font-medium">Harga bicara.</em><br />
-                        Belanja di sini.
+                        <em className="italic text-red font-medium">Selalu ada.</em><br />
+                        Belanja sekarang!
                     </h1>
 
                     <p className="mt-4 text-[14px] text-gray-500 leading-relaxed max-w-sm">

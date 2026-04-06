@@ -3,6 +3,9 @@ import { RootLayout } from './pages/RootLayout'
 import { HomePage } from './pages/HomePage'
 import { ProductDetailPage } from './pages/ProductDetailPage'
 import { ProductListPage } from './pages/ProdoctListPage'
+import { CartPage } from './pages/CartPage'
+import { LoginPage } from './pages/LoginPage'
+import { RegisterPage } from './pages/RegisterPage'
 
 const router = createBrowserRouter([
     {
@@ -12,10 +15,10 @@ const router = createBrowserRouter([
             { index: true, element: <HomePage /> },
             { path: 'products/:id', element: <ProductDetailPage /> },
             { path: 'products', element: <ProductListPage /> },
-            // { path: 'cart',             element: <CartPage /> },
+            { path: 'cart', element: <CartPage /> },
             // { path: 'checkout',         element: <CheckoutPage /> },
-            // { path: 'login',            element: <LoginPage /> },
-            // { path: 'register',         element: <RegisterPage /> },
+            { path: 'login', element: <LoginPage /> },
+            { path: 'register', element: <RegisterPage /> },
             // { path: 'account',          element: <AccountPage /> },
             // { path: 'seller/dashboard', element: <SellerDashboardPage /> },
         ],
